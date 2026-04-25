@@ -2,5 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ai-service/cloned_repos/3f6b65fd-24e9-4e60-8f1f-1dfd3e0a1ef3" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ai-service/cloned_repos/69bda0e0-af36-41cf-9210-1c6e3aff5e05" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ai-service/cloned_repos/747c7312-7701-4248-92e4-edf1f077aca5" vcs="Git" />
   </component>
 </project>
