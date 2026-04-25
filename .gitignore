@@ -1,0 +1,22 @@
+# Python
+ai-service/venv/
+ai-service/cloned_repos/
+ai-service/chroma_db/
+ai-service/__pycache__/
+ai-service/**/*.pyc
+ai-service/.env
+
+# Java
+**/target/
+**/*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Docker
+docker-compose.override.yml
+
+# OS
+.DS_Store
