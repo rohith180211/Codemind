@@ -7,4 +7,5 @@ import lombok.Data;
 public class AddRepoRequest {
     private String githubUrl;
     private SourceType sourceType;
+    private String githubToken;
 }

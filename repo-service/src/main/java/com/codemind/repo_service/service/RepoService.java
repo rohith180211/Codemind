@@ -1,5 +1,7 @@
 package com.codemind.repo_service.service;
 
+import com.codemind.repo_service.event.RepoIngestionEvent;
+import com.codemind.repo_service.kafka.RepoEventProducer;
 import com.codemind.repo_service.model.Repository;
 import com.codemind.repo_service.model.RepoStatus;
 import com.codemind.repo_service.model.SourceType;
@@ -16,8 +18,11 @@ import java.util.UUID;
 public class RepoService {
 
     private final RepoRepository repoRepository;
+    private final RepoEventProducer repoEventProducer;
 
-    public Repository addRepo(UUID userId, String githubUrl, SourceType sourceType) {
+
+    public Repository addRepo(UUID userId, String githubUrl,
+                              SourceType sourceType, String githubToken) {
 
         if (repoRepository.existsByUserIdAndGithubUrl(userId, githubUrl)) {
             throw new RuntimeException("Repository already added");
@@ -36,8 +41,23 @@ public class RepoService {
                 .status(RepoStatus.PENDING)
                 .build();
 
-        return repoRepository.save(repo);
+        Repository saved = repoRepository.save(repo);
+
+        RepoIngestionEvent event = RepoIngestionEvent.builder()
+                .repoId(saved.getId().toString())
+                .userId(userId.toString())
+                .githubUrl(githubUrl)
+                .name(name)
+                .owner(owner)
+                .sourceType(sourceType)
+                .githubToken(githubToken)
+                .build();
+
+        repoEventProducer.publishIngestionEvent(event);
+
+        return saved;
     }
+
 
     public List<Repository> getUserRepos(UUID userId) {
         return repoRepository.findByUserId(userId);

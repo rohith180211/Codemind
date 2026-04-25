@@ -31,7 +31,8 @@ public class RepoController {
             Repository repo = repoService.addRepo(
                     userId,
                     request.getGithubUrl(),
-                    request.getSourceType()
+                    request.getSourceType(),
+                    request.getGithubToken()
             );
             return ResponseEntity.status(HttpStatus.CREATED).body(toResponse(repo));
         } catch (RuntimeException e) {
